@@ -239,7 +239,7 @@ public class ConfigurationClassPostProcessor implements BeanDefinitionRegistryPo
 		}
 		this.registriesPostProcessed.add(registryId);
 
-		//执行此方法
+		//执行扩展方法
 		processConfigBeanDefinitions(registry);
 	}
 
@@ -361,7 +361,8 @@ public class ConfigurationClassPostProcessor implements BeanDefinitionRegistryPo
 						this.importBeanNameGenerator, parser.getImportRegistry());
 			}
 
-			//将@Import等----解析结果进行注册
+			//将所有解析出来的类进行加载注册到 beanDefinitionMap中，
+			// configClasses 中包括了 @ComponentScan、@Import、@Bean等得到的结果
 			this.reader.loadBeanDefinitions(configClasses);
 			alreadyParsed.addAll(configClasses);
 

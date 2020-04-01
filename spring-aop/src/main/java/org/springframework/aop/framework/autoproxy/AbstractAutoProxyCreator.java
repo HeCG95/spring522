@@ -298,6 +298,7 @@ public abstract class AbstractAutoProxyCreator extends ProxyProcessorSupport
 			Object cacheKey = getCacheKey(bean.getClass(), beanName);
 			//通过 beanName从 earlyProxyReferences这个map中取出一个bean并判断是否等于当前这个bean
 			if (this.earlyProxyReferences.remove(cacheKey) != bean) {
+				//还没被代理过，执行
 				return wrapIfNecessary(bean, beanName, cacheKey);
 			}
 		}
@@ -356,7 +357,7 @@ public abstract class AbstractAutoProxyCreator extends ProxyProcessorSupport
 		if (specificInterceptors != DO_NOT_PROXY) {
 			//更新 advisedBeans 为true
 			this.advisedBeans.put(cacheKey, Boolean.TRUE);
-			//创建一个代理对象
+			//创建一个代理对象！！！
 			Object proxy = createProxy(
 					bean.getClass(), beanName, specificInterceptors, new SingletonTargetSource(bean));
 			this.proxyTypes.put(cacheKey, proxy.getClass());
@@ -453,31 +454,43 @@ public abstract class AbstractAutoProxyCreator extends ProxyProcessorSupport
 			@Nullable Object[] specificInterceptors, TargetSource targetSource) {
 
 		if (this.beanFactory instanceof ConfigurableListableBeanFactory) {
+			//为BeanDefinition添加 originalTargetClass 属性，值为 targetClass
 			AutoProxyUtils.exposeTargetClass((ConfigurableListableBeanFactory) this.beanFactory, beanName, beanClass);
 		}
 
+		//创建一个代理工厂，这个工厂包含了很多bean的信息，最终通过这个工厂来创建代理类
 		ProxyFactory proxyFactory = new ProxyFactory();
+		//设置一些属性值，如 proxyTargetClass、optimize、exposeProxy等
 		proxyFactory.copyFrom(this);
 
+		//如果 proxyTargetClass = false，说明设置了不使用目标类来代理
 		if (!proxyFactory.isProxyTargetClass()) {
+			//判断目标类是否设置了 preserveTargetClass 属性，如果设置了，则强制使用目标类进行代理
 			if (shouldProxyTargetClass(beanClass, beanName)) {
 				proxyFactory.setProxyTargetClass(true);
 			}
+			//如果没有设置 preserveTargetClass，则判断是否实现了相关接口，有则设置接口信息
+			//否则，还是使用目标类进行代理
 			else {
 				evaluateProxyInterfaces(beanClass, proxyFactory);
 			}
 		}
 
+		//将需要织入的切面逻辑转为 advisor 对象
 		Advisor[] advisors = buildAdvisors(beanName, specificInterceptors);
+		//代理工厂类添加相关信息
 		proxyFactory.addAdvisors(advisors);
 		proxyFactory.setTargetSource(targetSource);
+		//这个方法在当前版本没有任何实现
 		customizeProxyFactory(proxyFactory);
 
 		proxyFactory.setFrozen(this.freezeProxy);
+		//此版本中 advisorsPreFiltered(){return false;}
 		if (advisorsPreFiltered()) {
 			proxyFactory.setPreFiltered(true);
 		}
 
+		//创建并返回代理对象
 		return proxyFactory.getProxy(getProxyClassLoader());
 	}
 

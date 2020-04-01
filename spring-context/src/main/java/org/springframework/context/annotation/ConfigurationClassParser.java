@@ -251,7 +251,8 @@ class ConfigurationClassParser {
 			sourceClass = doProcessConfigurationClass(configClass, sourceClass);
 		}
 		while (sourceClass != null);
-		//将@Import(ImportSelector.class/普通类.class)处理的类放在该map中
+		//将 doProcessConfigurationClass(configClass, sourceClass) 中处理得到的类放入map中
+		// @Import(ImportSelector.class/普通类.class)处理的类放在该map中
 		//configClass中包含了@Import(ImportBeanDefinitionRegistrar.class)解析结果
 		this.configurationClasses.put(configClass, configClass);
 	}
@@ -268,7 +269,7 @@ class ConfigurationClassParser {
 	protected final SourceClass doProcessConfigurationClass(ConfigurationClass configClass, SourceClass sourceClass)
 			throws IOException {
 
-		//处理内部类
+		//处理加了 @Component 注解的类
 		if (configClass.getMetadata().isAnnotated(Component.class.getName())) {
 			// Recursively process any member (nested) classes first
 			processMemberClasses(configClass, sourceClass);
@@ -587,7 +588,7 @@ class ConfigurationClassParser {
 							String[] importClassNames = selector.selectImports(currentSourceClass.getMetadata());
 							//个人理解：得到ImportSelector返回的字符串数组反射得到的类
 							Collection<SourceClass> importSourceClasses = asSourceClasses(importClassNames);
-							//个人理解：递归调用本方法，判断根据ImportSelector中方法返回来的字符串数组反射得到的类是否也实现了ImportSelector
+							//个人理解：递归调用本方法，处理根据ImportSelector中方法返回来的字符串数组反射得到的类中被@Import注解的类
 							processImports(configClass, currentSourceClass, importSourceClasses, false);
 						}
 					}
@@ -599,10 +600,10 @@ class ConfigurationClassParser {
 						ImportBeanDefinitionRegistrar registrar =
 								ParserStrategyUtils.instantiateClass(candidateClass, ImportBeanDefinitionRegistrar.class,
 										this.environment, this.resourceLoader, this.registry);
-						//将该类放进 configClass对象中一个名为importBeanDefinitionRegistrars的map中
+						//将该类放进 configClass对象中一个名为importBeanDefinitionRegistrars的map中，后面执行
 						configClass.addImportBeanDefinitionRegistrar(registrar, currentSourceClass.getMetadata());
 					}
-					//如果该类只是一个普通类
+					//如果该类只是一个普通类，或者 ImportSelector 中得到的普通类
 					else {
 						// Candidate class not an ImportSelector or ImportBeanDefinitionRegistrar ->
 						// process it as an @Configuration class

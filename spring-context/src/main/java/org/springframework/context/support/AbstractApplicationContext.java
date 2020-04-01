@@ -540,18 +540,22 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 				postProcessBeanFactory(beanFactory);
 
 				// Invoke factory processors registered as beans in the context.
-				//重要！！！完成包的扫描，并将扫描到的类注册到beanDefinitionMap中
-				//在spring环境中去执行已经被注册的factory postprocessor
-				//设置执行自定义的和spring内部的BeanFactoryPostProcessors
-				//主要是ConfigurationClassPostProcessor这个类
+				/**
+				 * 重要！！！完成包的扫描，并将扫描到的类注册到beanDefinitionMap中
+				 * 在spring环境中去执行已经被注册的factory postprocessor
+				 * 设置执行自定义的和spring内部的BeanFactoryPostProcessors
+				 * 主要是ConfigurationClassPostProcessor这个类
+				 */
 				invokeBeanFactoryPostProcessors(beanFactory);
 
 				/////////到这里为止，beanFactory初始化已经完成，以下开始bean的实例化///////////
 
 				// Register bean processors that intercept bean creation.
-				//注册bean的后置处理器，这里只是注册，还未执行，这里主要注册了三个后置处理器：
-				//AutowiredAnnotationBeanPostProcessor、CommonAnnotationBeanPostProcessor和BeanPostProcessorChecker
-				//如果开启了AspectJ，这里还会添加自动代理的后置处理器 AnnotationAwareAspectJAutoProxyCreator
+				/**
+				 * 注册bean的后置处理器，这里只是注册，还未执行，这里主要注册了三个后置处理器：
+				 * AutowiredAnnotationBeanPostProcessor、CommonAnnotationBeanPostProcessor和BeanPostProcessorChecker
+				 * 如果开启了AspectJ，这里还会添加自动代理的后置处理器 AnnotationAwareAspectJAutoProxyCreator
+				 */
 				registerBeanPostProcessors(beanFactory);
 
 				// Initialize message source for this context.
@@ -741,11 +745,13 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 	 * <p>Must be called before singleton instantiation.
 	 */
 	protected void invokeBeanFactoryPostProcessors(ConfigurableListableBeanFactory beanFactory) {
-		//这里需要注意的是getBeanFactoryPostProcessors()获得的是自定义的后置处理器（自己定义但没有交给spring管理的，即没有加@Component）
-		//getBeanFactoryPostProcessors()为什么得不到@Component的后置处理器？
-		//因为这个方法获取的是一个list，这个list是在AnnotationConfigApplicationContext中定义的
-		//这样的注册器可以在初始化AnnotationConfigApplicationContext环境时，
-		// 在调用refresh方法之前通过AnnotationConfigApplicationContext.addBeanFactoryPostProcessor()添加进来的
+		/**
+		 * 这里需要注意的是getBeanFactoryPostProcessors()获得的是自定义的后置处理器（自己定义但没有交给spring管理的，即没有加@Component）
+		 * getBeanFactoryPostProcessors()为什么得不到@Component的后置处理器？
+		 * 因为这个方法获取的是一个list，这个list是在AnnotationConfigApplicationContext中定义的
+		 * 这样的注册器可以在初始化AnnotationConfigApplicationContext环境时，
+		 * 在调用refresh方法之前通过AnnotationConfigApplicationContext.addBeanFactoryPostProcessor()添加进来的
+		 */
 		PostProcessorRegistrationDelegate.invokeBeanFactoryPostProcessors(beanFactory, getBeanFactoryPostProcessors());
 
 		// Detect a LoadTimeWeaver and prepare for weaving, if found in the meantime
