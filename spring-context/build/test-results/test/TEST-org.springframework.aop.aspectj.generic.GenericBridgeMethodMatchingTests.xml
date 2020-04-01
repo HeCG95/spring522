@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="org.springframework.aop.aspectj.generic.GenericBridgeMethodMatchingTests" tests="2" skipped="0" failures="0" errors="0" timestamp="2020-03-31T12:23:26" hostname="DESKTOP-LR4J8H3" time="0.04">
+  <properties/>
+  <testcase name="testGenericBaseInterfaceMethodThroughInterface()" classname="org.springframework.aop.aspectj.generic.GenericBridgeMethodMatchingTests" time="0.019"/>
+  <testcase name="testGenericDerivedInterfaceMethodThroughInterface()" classname="org.springframework.aop.aspectj.generic.GenericBridgeMethodMatchingTests" time="0.019"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

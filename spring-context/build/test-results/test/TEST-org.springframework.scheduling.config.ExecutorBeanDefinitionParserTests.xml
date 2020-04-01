@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="org.springframework.scheduling.config.ExecutorBeanDefinitionParserTests" tests="11" skipped="0" failures="0" errors="0" timestamp="2020-03-31T12:24:25" hostname="DESKTOP-LR4J8H3" time="0.2">
+  <properties/>
+  <testcase name="propertyPlaceholderWithInvalidPoolSize()" classname="org.springframework.scheduling.config.ExecutorBeanDefinitionParserTests" time="0.019"/>
+  <testcase name="threadNamePrefix()" classname="org.springframework.scheduling.config.ExecutorBeanDefinitionParserTests" time="0.013"/>
+  <testcase name="rangeWithUnboundedQueue()" classname="org.springframework.scheduling.config.ExecutorBeanDefinitionParserTests" time="0.015"/>
+  <testcase name="invalidPoolSize()" classname="org.springframework.scheduling.config.ExecutorBeanDefinitionParserTests" time="0.017"/>
+  <testcase name="defaultExecutor()" classname="org.springframework.scheduling.config.ExecutorBeanDefinitionParserTests" time="0.015"/>
+  <testcase name="propertyPlaceholderWithRange()" classname="org.springframework.scheduling.config.ExecutorBeanDefinitionParserTests" time="0.017"/>
+  <testcase name="typeCheck()" classname="org.springframework.scheduling.config.ExecutorBeanDefinitionParserTests" time="0.018"/>
+  <testcase name="propertyPlaceholderWithSingleSize()" classname="org.springframework.scheduling.config.ExecutorBeanDefinitionParserTests" time="0.023"/>
+  <testcase name="singleSize()" classname="org.springframework.scheduling.config.ExecutorBeanDefinitionParserTests" time="0.018"/>
+  <testcase name="propertyPlaceholderWithRangeAndCoreThreadTimeout()" classname="org.springframework.scheduling.config.ExecutorBeanDefinitionParserTests" time="0.024"/>
+  <testcase name="rangeWithBoundedQueue()" classname="org.springframework.scheduling.config.ExecutorBeanDefinitionParserTests" time="0.016"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

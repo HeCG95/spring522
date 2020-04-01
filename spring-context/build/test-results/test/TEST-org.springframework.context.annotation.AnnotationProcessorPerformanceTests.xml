@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="org.springframework.context.annotation.AnnotationProcessorPerformanceTests" tests="4" skipped="4" failures="0" errors="0" timestamp="2020-03-31T12:23:42" hostname="DESKTOP-LR4J8H3" time="0.0">
+  <properties/>
+  <testcase name="prototypeCreationWithOverriddenResourcePropertiesIsFastEnough()" classname="org.springframework.context.annotation.AnnotationProcessorPerformanceTests" time="0.0">
+    <skipped/>
+  </testcase>
+  <testcase name="prototypeCreationWithOverriddenAutowiredPropertiesIsFastEnough()" classname="org.springframework.context.annotation.AnnotationProcessorPerformanceTests" time="0.0">
+    <skipped/>
+  </testcase>
+  <testcase name="prototypeCreationWithAutowiredPropertiesIsFastEnough()" classname="org.springframework.context.annotation.AnnotationProcessorPerformanceTests" time="0.0">
+    <skipped/>
+  </testcase>
+  <testcase name="prototypeCreationWithResourcePropertiesIsFastEnough()" classname="org.springframework.context.annotation.AnnotationProcessorPerformanceTests" time="0.0">
+    <skipped/>
+  </testcase>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

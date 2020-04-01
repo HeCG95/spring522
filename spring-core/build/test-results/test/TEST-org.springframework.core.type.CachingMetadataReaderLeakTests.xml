@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="org.springframework.core.type.CachingMetadataReaderLeakTests" tests="1" skipped="1" failures="0" errors="0" timestamp="2020-03-31T12:16:22" hostname="DESKTOP-LR4J8H3" time="0.0">
+  <properties/>
+  <testcase name="significantLoad()" classname="org.springframework.core.type.CachingMetadataReaderLeakTests" time="0.0">
+    <skipped/>
+  </testcase>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

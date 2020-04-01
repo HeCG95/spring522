@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="org.springframework.beans.factory.xml.MetadataAttachmentTests" tests="3" skipped="0" failures="0" errors="0" timestamp="2020-03-31T12:19:49" hostname="DESKTOP-LR4J8H3" time="0.038">
+  <properties/>
+  <testcase name="propertyMetadata()" classname="org.springframework.beans.factory.xml.MetadataAttachmentTests" time="0.012"/>
+  <testcase name="metadataIsInherited()" classname="org.springframework.beans.factory.xml.MetadataAttachmentTests" time="0.01"/>
+  <testcase name="metadataAttachment()" classname="org.springframework.beans.factory.xml.MetadataAttachmentTests" time="0.013"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

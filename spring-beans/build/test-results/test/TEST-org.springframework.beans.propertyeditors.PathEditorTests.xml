@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="org.springframework.beans.propertyeditors.PathEditorTests" tests="6" skipped="0" failures="0" errors="0" timestamp="2020-03-31T12:19:52" hostname="DESKTOP-LR4J8H3" time="0.016">
+  <properties/>
+  <testcase name="testUnqualifiedPathNameFound()" classname="org.springframework.beans.propertyeditors.PathEditorTests" time="0.001"/>
+  <testcase name="testUnqualifiedPathNameNotFound()" classname="org.springframework.beans.propertyeditors.PathEditorTests" time="0.008"/>
+  <testcase name="testAbsolutePath()" classname="org.springframework.beans.propertyeditors.PathEditorTests" time="0.001"/>
+  <testcase name="testWithNonExistentResource()" classname="org.springframework.beans.propertyeditors.PathEditorTests" time="0.002"/>
+  <testcase name="testWithNonExistentPath()" classname="org.springframework.beans.propertyeditors.PathEditorTests" time="0.001"/>
+  <testcase name="testClasspathPathName()" classname="org.springframework.beans.propertyeditors.PathEditorTests" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

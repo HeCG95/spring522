@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="org.springframework.beans.factory.support.security.CallbacksSecurityTests" tests="15" skipped="0" failures="0" errors="0" timestamp="2020-03-31T12:19:47" hostname="DESKTOP-LR4J8H3" time="0.329">
+  <properties/>
+  <testcase name="testSecuritySanity()" classname="org.springframework.beans.factory.support.security.CallbacksSecurityTests" time="0.06"/>
+  <testcase name="testSpringDestroyBean()" classname="org.springframework.beans.factory.support.security.CallbacksSecurityTests" time="0.027"/>
+  <testcase name="testCustomFactoryType()" classname="org.springframework.beans.factory.support.security.CallbacksSecurityTests" time="0.015"/>
+  <testcase name="testTrustedFactoryMethod()" classname="org.springframework.beans.factory.support.security.CallbacksSecurityTests" time="0.024"/>
+  <testcase name="testCustomStaticFactoryMethod()" classname="org.springframework.beans.factory.support.security.CallbacksSecurityTests" time="0.016"/>
+  <testcase name="testCustomInstanceFactoryMethod()" classname="org.springframework.beans.factory.support.security.CallbacksSecurityTests" time="0.017"/>
+  <testcase name="testSpringInitBean()" classname="org.springframework.beans.factory.support.security.CallbacksSecurityTests" time="0.014"/>
+  <testcase name="testContainerPrivileges()" classname="org.springframework.beans.factory.support.security.CallbacksSecurityTests" time="0.012"/>
+  <testcase name="testPropertyInjection()" classname="org.springframework.beans.factory.support.security.CallbacksSecurityTests" time="0.034"/>
+  <testcase name="testCustomFactoryObject()" classname="org.springframework.beans.factory.support.security.CallbacksSecurityTests" time="0.014"/>
+  <testcase name="testCustomDestroyBean()" classname="org.springframework.beans.factory.support.security.CallbacksSecurityTests" time="0.015"/>
+  <testcase name="testCustomInitBean()" classname="org.springframework.beans.factory.support.security.CallbacksSecurityTests" time="0.012"/>
+  <testcase name="testTrustedExecution()" classname="org.springframework.beans.factory.support.security.CallbacksSecurityTests" time="0.034"/>
+  <testcase name="testInitSecurityAwarePrototypeBean()" classname="org.springframework.beans.factory.support.security.CallbacksSecurityTests" time="0.015"/>
+  <testcase name="testConstructor()" classname="org.springframework.beans.factory.support.security.CallbacksSecurityTests" time="0.012"/>
+  <system-out><![CDATA[20:19:47.904 [Test worker] WARN  o.s.b.f.s.DisposableBeanAdapter - Invocation of destroy method failed on bean with name 'spring-destroy': java.security.AccessControlException: access denied ("java.util.PropertyPermission" "security.destroy" "write")
+20:19:48.072 [Test worker] WARN  o.s.b.f.s.DisposableBeanAdapter - Destroy method 'destroy' on bean with name 'custom-destroy' threw an exception: java.security.AccessControlException: access denied ("java.util.PropertyPermission" "security.destroy" "write")
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

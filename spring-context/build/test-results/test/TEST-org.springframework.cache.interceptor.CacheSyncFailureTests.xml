@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="org.springframework.cache.interceptor.CacheSyncFailureTests" tests="5" skipped="0" failures="0" errors="0" timestamp="2020-03-31T12:23:42" hostname="DESKTOP-LR4J8H3" time="0.452">
+  <properties/>
+  <testcase name="syncWithTwoGetOperations()" classname="org.springframework.cache.interceptor.CacheSyncFailureTests" time="0.024"/>
+  <testcase name="unlessSync()" classname="org.springframework.cache.interceptor.CacheSyncFailureTests" time="0.015"/>
+  <testcase name="severalCachesWithResolvedSync()" classname="org.springframework.cache.interceptor.CacheSyncFailureTests" time="0.012"/>
+  <testcase name="severalCachesSync()" classname="org.springframework.cache.interceptor.CacheSyncFailureTests" time="0.012"/>
+  <testcase name="syncWithAnotherOperation()" classname="org.springframework.cache.interceptor.CacheSyncFailureTests" time="0.385"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

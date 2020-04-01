@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="org.springframework.beans.PropertyMatchesTests" tests="12" skipped="0" failures="0" errors="0" timestamp="2020-03-31T12:19:52" hostname="DESKTOP-LR4J8H3" time="0.031">
+  <properties/>
+  <testcase name="complexFieldPropertyErrorMessage()" classname="org.springframework.beans.PropertyMatchesTests" time="0.001"/>
+  <testcase name="unknownFieldProperty()" classname="org.springframework.beans.PropertyMatchesTests" time="0.001"/>
+  <testcase name="complexBeanPropertyErrorMessage()" classname="org.springframework.beans.PropertyMatchesTests" time="0.017"/>
+  <testcase name="complexFieldPropertyTypo()" classname="org.springframework.beans.PropertyMatchesTests" time="0.0"/>
+  <testcase name="simpleFieldPropertyTypo()" classname="org.springframework.beans.PropertyMatchesTests" time="0.001"/>
+  <testcase name="simpleFieldPropertyErrorMessage()" classname="org.springframework.beans.PropertyMatchesTests" time="0.001"/>
+  <testcase name="simpleBeanPropertyErrorMessage()" classname="org.springframework.beans.PropertyMatchesTests" time="0.002"/>
+  <testcase name="unknownBeanProperty()" classname="org.springframework.beans.PropertyMatchesTests" time="0.002"/>
+  <testcase name="complexBeanPropertyTypo()" classname="org.springframework.beans.PropertyMatchesTests" time="0.0"/>
+  <testcase name="severalMatchesFieldProperty()" classname="org.springframework.beans.PropertyMatchesTests" time="0.0"/>
+  <testcase name="simpleBeanPropertyTypo()" classname="org.springframework.beans.PropertyMatchesTests" time="0.0"/>
+  <testcase name="severalMatchesBeanProperty()" classname="org.springframework.beans.PropertyMatchesTests" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

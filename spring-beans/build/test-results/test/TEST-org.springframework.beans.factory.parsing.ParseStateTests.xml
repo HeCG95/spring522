@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="org.springframework.beans.factory.parsing.ParseStateTests" tests="3" skipped="0" failures="0" errors="0" timestamp="2020-03-31T12:19:47" hostname="DESKTOP-LR4J8H3" time="0.0">
+  <properties/>
+  <testcase name="testSnapshot()" classname="org.springframework.beans.factory.parsing.ParseStateTests" time="0.0"/>
+  <testcase name="testNesting()" classname="org.springframework.beans.factory.parsing.ParseStateTests" time="0.0"/>
+  <testcase name="testSimple()" classname="org.springframework.beans.factory.parsing.ParseStateTests" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

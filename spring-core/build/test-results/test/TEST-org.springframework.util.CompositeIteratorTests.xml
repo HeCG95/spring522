@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="org.springframework.util.CompositeIteratorTests" tests="5" skipped="0" failures="0" errors="0" timestamp="2020-03-31T12:16:24" hostname="DESKTOP-LR4J8H3" time="0.005">
+  <properties/>
+  <testcase name="duplicateIterators()" classname="org.springframework.util.CompositeIteratorTests" time="0.001"/>
+  <testcase name="noIterators()" classname="org.springframework.util.CompositeIteratorTests" time="0.001"/>
+  <testcase name="inUse()" classname="org.springframework.util.CompositeIteratorTests" time="0.001"/>
+  <testcase name="multipleIterators()" classname="org.springframework.util.CompositeIteratorTests" time="0.0"/>
+  <testcase name="singleIterator()" classname="org.springframework.util.CompositeIteratorTests" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

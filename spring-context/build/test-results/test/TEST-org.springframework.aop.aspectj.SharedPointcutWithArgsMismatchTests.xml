@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="org.springframework.aop.aspectj.SharedPointcutWithArgsMismatchTests" tests="1" skipped="0" failures="0" errors="0" timestamp="2020-03-31T12:23:26" hostname="DESKTOP-LR4J8H3" time="0.039">
+  <properties/>
+  <testcase name="testMismatchedArgBinding()" classname="org.springframework.aop.aspectj.SharedPointcutWithArgsMismatchTests" time="0.039"/>
+  <system-out><![CDATA[Hello
+Hello
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

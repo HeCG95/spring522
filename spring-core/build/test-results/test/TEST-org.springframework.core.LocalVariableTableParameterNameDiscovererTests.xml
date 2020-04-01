@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="org.springframework.core.LocalVariableTableParameterNameDiscovererTests" tests="11" skipped="1" failures="0" errors="0" timestamp="2020-03-31T12:16:21" hostname="DESKTOP-LR4J8H3" time="0.035">
+  <properties/>
+  <testcase name="generifiedClass()" classname="org.springframework.core.LocalVariableTableParameterNameDiscovererTests" time="0.013"/>
+  <testcase name="classesWithoutDebugSymbols()" classname="org.springframework.core.LocalVariableTableParameterNameDiscovererTests" time="0.0">
+    <skipped/>
+  </testcase>
+  <testcase name="consParameterNameDiscoveryNoArgs()" classname="org.springframework.core.LocalVariableTableParameterNameDiscovererTests" time="0.002"/>
+  <testcase name="overloadedStaticMethodInInnerClass()" classname="org.springframework.core.LocalVariableTableParameterNameDiscovererTests" time="0.002"/>
+  <testcase name="methodParameterNameDiscoveryWithArgs()" classname="org.springframework.core.LocalVariableTableParameterNameDiscovererTests" time="0.001"/>
+  <testcase name="overloadedMethod()" classname="org.springframework.core.LocalVariableTableParameterNameDiscovererTests" time="0.002"/>
+  <testcase name="overloadedMethodInInnerClass()" classname="org.springframework.core.LocalVariableTableParameterNameDiscovererTests" time="0.001"/>
+  <testcase name="overloadedStaticMethod()" classname="org.springframework.core.LocalVariableTableParameterNameDiscovererTests" time="0.005"/>
+  <testcase name="staticMethodParameterNameDiscoveryNoArgs()" classname="org.springframework.core.LocalVariableTableParameterNameDiscovererTests" time="0.002"/>
+  <testcase name="consParameterNameDiscoveryArgs()" classname="org.springframework.core.LocalVariableTableParameterNameDiscovererTests" time="0.002"/>
+  <testcase name="methodParameterNameDiscoveryNoArgs()" classname="org.springframework.core.LocalVariableTableParameterNameDiscovererTests" time="0.002"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
