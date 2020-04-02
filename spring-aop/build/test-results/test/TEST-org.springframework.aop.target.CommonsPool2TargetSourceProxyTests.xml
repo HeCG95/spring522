@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="org.springframework.aop.target.CommonsPool2TargetSourceProxyTests" tests="1" skipped="0" failures="0" errors="0" timestamp="2020-03-31T12:48:35" hostname="DESKTOP-LR4J8H3" time="0.055">
-  <properties/>
-  <testcase name="testProxy()" classname="org.springframework.aop.target.CommonsPool2TargetSourceProxyTests" time="0.055"/>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>

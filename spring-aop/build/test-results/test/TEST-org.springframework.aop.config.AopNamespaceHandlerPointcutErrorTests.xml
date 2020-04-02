@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="org.springframework.aop.config.AopNamespaceHandlerPointcutErrorTests" tests="2" skipped="0" failures="0" errors="0" timestamp="2020-03-31T12:48:32" hostname="DESKTOP-LR4J8H3" time="0.334">
-  <properties/>
-  <testcase name="testMissingPointcutConfig()" classname="org.springframework.aop.config.AopNamespaceHandlerPointcutErrorTests" time="0.113"/>
-  <testcase name="testDuplicatePointcutConfig()" classname="org.springframework.aop.config.AopNamespaceHandlerPointcutErrorTests" time="0.22"/>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>

@@ -1,5 +1,0 @@
-ÚÛo20:19:46.724 [Test worker] WARN  o.s.b.f.c.YamlMapFactoryBean - Could not load map from non-existent: planned
-Úáé20:19:46.752 [Test worker] WARN  o.s.b.f.c.YamlMapFactoryBean - Could not load map from file [E:\002_project\IntelliJ_IDEA\source-code\spring\spring-framework-5.2.2.RELEASE\spring-beans\non-exsitent-file.yml]: non-exsitent-file.yml
-ìüÚ20:19:46.808 [Test worker] WARN  o.s.b.f.c.YamlPropertiesFactoryBean - Could not load map from class path resource [no-such-file.yml]: class path resource [no-such-file.yml] cannot be opened because it does not exist
-ÆÇü20:19:47.904 [Test worker] WARN  o.s.b.f.s.DisposableBeanAdapter - Invocation of destroy method failed on bean with name 'spring-destroy': java.security.AccessControlException: access denied ("java.util.PropertyPermission" "security.destroy" "write")
-ÆÐ„20:19:48.072 [Test worker] WARN  o.s.b.f.s.DisposableBeanAdapter - Destroy method 'destroy' on bean with name 'custom-destroy' threw an exception: java.security.AccessControlException: access denied ("java.util.PropertyPermission" "security.destroy" "write")

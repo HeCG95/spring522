@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="org.springframework.core.io.support.SpringFactoriesLoaderTests" tests="3" skipped="0" failures="0" errors="0" timestamp="2020-03-31T12:16:21" hostname="DESKTOP-LR4J8H3" time="0.006">
-  <properties/>
-  <testcase name="loadFactoriesInCorrectOrder()" classname="org.springframework.core.io.support.SpringFactoriesLoaderTests" time="0.004"/>
-  <testcase name="loadPackagePrivateFactory()" classname="org.springframework.core.io.support.SpringFactoriesLoaderTests" time="0.001"/>
-  <testcase name="attemptToLoadFactoryOfIncompatibleType()" classname="org.springframework.core.io.support.SpringFactoriesLoaderTests" time="0.001"/>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>

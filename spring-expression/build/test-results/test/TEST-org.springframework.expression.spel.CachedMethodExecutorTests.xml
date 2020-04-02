@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="org.springframework.expression.spel.CachedMethodExecutorTests" tests="2" skipped="0" failures="0" errors="0" timestamp="2020-03-31T12:21:04" hostname="DESKTOP-LR4J8H3" time="0.009">
-  <properties/>
-  <testcase name="testCachedExecutionForTarget()" classname="org.springframework.expression.spel.CachedMethodExecutorTests" time="0.006"/>
-  <testcase name="testCachedExecutionForParameters()" classname="org.springframework.expression.spel.CachedMethodExecutorTests" time="0.002"/>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>

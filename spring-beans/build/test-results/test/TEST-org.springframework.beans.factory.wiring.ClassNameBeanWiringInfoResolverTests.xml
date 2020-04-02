@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="org.springframework.beans.factory.wiring.ClassNameBeanWiringInfoResolverTests" tests="2" skipped="0" failures="0" errors="0" timestamp="2020-03-31T12:19:48" hostname="DESKTOP-LR4J8H3" time="0.003">
-  <properties/>
-  <testcase name="resolveWiringInfo()" classname="org.springframework.beans.factory.wiring.ClassNameBeanWiringInfoResolverTests" time="0.002"/>
-  <testcase name="resolveWiringInfoWithNullBeanInstance()" classname="org.springframework.beans.factory.wiring.ClassNameBeanWiringInfoResolverTests" time="0.001"/>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>
