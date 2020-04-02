@@ -1169,12 +1169,19 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 			if (!mbd.isSynthetic() && hasInstantiationAwareBeanPostProcessors()) {
 				Class<?> targetType = determineTargetType(beanName, mbd);
 				if (targetType != null) {
+					/**
+					 * 执行 InstantiationAwareBeanPostProcessor 这个后置处理器的 postProcessBeforeInstantiation()方法
+					 * 如果这里没有返回bean，则继续执行该后置处理器的 postProcessAfterInstantiation()方法，否则不执行
+					 * ！！！如果开启了aop，则这里会执行 AnnotationAwareAspectJAutoProxyCreator 这个后置处理器，这个后置
+					 * 处理器的父类 AbstractAutoProxyCreator 实现了 InstantiationAwareBeanPostProcessor
+					 */
 					bean = applyBeanPostProcessorsBeforeInstantiation(targetType, beanName);
 					if (bean != null) {
 						bean = applyBeanPostProcessorsAfterInitialization(bean, beanName);
 					}
 				}
 			}
+			//设置是否在实例化之前就已经完成创建 bean 的标志
 			mbd.beforeInstantiationResolved = (bean != null);
 		}
 		return bean;
@@ -1195,6 +1202,10 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 	protected Object applyBeanPostProcessorsBeforeInstantiation(Class<?> beanClass, String beanName) {
 		for (BeanPostProcessor bp : getBeanPostProcessors()) {
 			if (bp instanceof InstantiationAwareBeanPostProcessor) {
+				/**
+				 * 如果开启了aop，执行 AnnotationAwareAspectJAutoProxyCreator 这个后置处理器
+				 * 执行的是父类 AbstractAutoProxyCreator 中的 postProcessBeforeInstantiation() 方法
+				 */
 				InstantiationAwareBeanPostProcessor ibp = (InstantiationAwareBeanPostProcessor) bp;
 				Object result = ibp.postProcessBeforeInstantiation(beanClass, beanName);
 				if (result != null) {
