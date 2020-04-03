@@ -861,7 +861,7 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 			//不是抽象的、是单例的、也不是懒加载的，就进 if中
 			if (!bd.isAbstract() && bd.isSingleton() && !bd.isLazyInit()) {
 				if (isFactoryBean(beanName)) {  // 判断该 bean是不是一个FactoryBean
-					//如果是factorybean则通过 &+beanName去拿到他
+					//如果是 FactoryBean 则通过 &+beanName去拿到这个 FactoryBean
 					Object bean = getBean(FACTORY_BEAN_PREFIX + beanName);
 					if (bean instanceof FactoryBean) {
 						final FactoryBean<?> factory = (FactoryBean<?>) bean;
