@@ -540,11 +540,15 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 	protected boolean isTypeMatch(String name, ResolvableType typeToMatch, boolean allowFactoryBeanInit)
 			throws NoSuchBeanDefinitionException {
 
+		//移除name中的 & 字符
 		String beanName = transformedBeanName(name);
+		//判断 name 是否以 & 开头
 		boolean isFactoryDereference = BeanFactoryUtils.isFactoryDereference(name);
 
 		// Check manually registered singletons.
+		//首先获取一遍单例对象，看看是否已被创建完成
 		Object beanInstance = getSingleton(beanName, false);
+		//如果已经创建完成，则在这里返回
 		if (beanInstance != null && beanInstance.getClass() != NullBean.class) {
 			if (beanInstance instanceof FactoryBean) {
 				if (!isFactoryDereference) {
@@ -589,6 +593,7 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 		}
 
 		// No singleton instance found -> check bean definition.
+		//获取父工厂，一般为 null
 		BeanFactory parentBeanFactory = getParentBeanFactory();
 		if (parentBeanFactory != null && !containsBeanDefinition(beanName)) {
 			// No bean definition found in this factory -> delegate to parent.
@@ -600,6 +605,7 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 		BeanDefinitionHolder dbd = mbd.getDecoratedDefinition();
 
 		// Setup the types that we want to match against
+		//将需要匹配的类型设置给 classToMatch
 		Class<?> classToMatch = typeToMatch.resolve();
 		if (classToMatch == null) {
 			classToMatch = FactoryBean.class;
@@ -609,6 +615,7 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 
 
 		// Attempt to predict the bean type
+		//预测一个 bean 类型
 		Class<?> predictedType = null;
 
 		// We're looking for a regular reference but we're a factory bean that has
@@ -627,7 +634,9 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 		}
 
 		// If we couldn't use the target type, try regular prediction.
+		//如果 BeanDefinition 中的 targetType 不能使用
 		if (predictedType == null) {
+			//获取 BeanDefinition 中的 beanClass，如果是mybatis中的mapper，这里获取出来的应该是一个 MapperFactoryBean
 			predictedType = predictBeanType(beanName, mbd, typesToMatch);
 			if (predictedType == null) {
 				return false;
@@ -635,11 +644,18 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 		}
 
 		// Attempt to get the actual ResolvableType for the bean.
+		//存储bean的实际类型
+		// 如：mybatis中的 mapper是一个MapperFactoryBean类型，但实际上是一个XxxMapper类型
 		ResolvableType beanType = null;
 
 		// If it's a FactoryBean, we want to look at what it creates, not the factory class.
+		/**
+		 * 如果是FactoryBean，则我们要查看它创建的内容，而不是工厂类。
+		 */
 		if (FactoryBean.class.isAssignableFrom(predictedType)) {
+			//如果name对应的bean还没有被创建，并且name不是以 & 开头
 			if (beanInstance == null && !isFactoryDereference) {
+				//获取 FactoryBean的实际类型
 				beanType = getTypeForFactoryBean(beanName, mbd, allowFactoryBeanInit);
 				predictedType = beanType.resolve();
 				if (predictedType == null) {

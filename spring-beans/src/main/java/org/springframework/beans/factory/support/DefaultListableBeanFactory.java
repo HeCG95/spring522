@@ -496,6 +496,7 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 		if (resolvedBeanNames != null) {
 			return resolvedBeanNames;
 		}
+		//真正通过类型获取 beanName 的逻辑
 		resolvedBeanNames = doGetBeanNamesForType(ResolvableType.forRawClass(type), includeNonSingletons, true);
 		if (ClassUtils.isCacheSafe(type, getBeanClassLoader())) {
 			cache.put(type, resolvedBeanNames);
@@ -504,12 +505,14 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 	}
 
 	private String[] doGetBeanNamesForType(ResolvableType type, boolean includeNonSingletons, boolean allowEagerInit) {
+		//存储找到的与类型匹配的beanName
 		List<String> result = new ArrayList<>();
 
 		// Check all bean definitions.
 		for (String beanName : this.beanDefinitionNames) {
 			// Only consider bean as eligible if the bean name
 			// is not defined as alias for some other bean.
+			//如果该beanName不是一个别名
 			if (!isAlias(beanName)) {
 				try {
 					RootBeanDefinition mbd = getMergedLocalBeanDefinition(beanName);
@@ -517,27 +520,43 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 					if (!mbd.isAbstract() && (allowEagerInit ||
 							(mbd.hasBeanClass() || !mbd.isLazyInit() || isAllowEagerClassLoading()) &&
 									!requiresEagerInitForType(mbd.getFactoryBeanName()))) {
+						//判断该 bean 是不是一个 FactoryBean
 						boolean isFactoryBean = isFactoryBean(beanName, mbd);
 						BeanDefinitionHolder dbd = mbd.getDecoratedDefinition();
+						//是否找到匹配
 						boolean matchFound = false;
+						//依赖注入时 allowEagerInit 前面直接传的是 true，所以依赖注入时 allowFactoryBeanInit 肯定为 true
+						//allowFactoryBeanInit 翻译过来意思是 允许FactoryBean初始化
 						boolean allowFactoryBeanInit = allowEagerInit || containsSingleton(beanName);
+						//非懒加载
 						boolean isNonLazyDecorated = dbd != null && !mbd.isLazyInit();
+						/**
+						 * isTypeMatch(beanName, type, allowFactoryBeanInit):判断 beanName 对应的 bean 的类型是否与 type 匹配
+						 * 依赖注入时，beanName 为循环 beanDefinitionNames 中的每一个beanName，type为属性的类型
+						 */
+						//如果该 bean 不是一个FactoryBean
 						if (!isFactoryBean) {
 							if (includeNonSingletons || isSingleton(beanName, mbd, dbd)) {
+								//判断这个beanName是否匹配（通过类型）
 								matchFound = isTypeMatch(beanName, type, allowFactoryBeanInit);
 							}
 						}
+						//如果该 bean 是一个FactoryBean
+						// （例如：service中注入mybatis自动生成的 mapper 代理类时，mapper接口都是MapperFactoryBean）
 						else  {
 							if (includeNonSingletons || isNonLazyDecorated ||
 									(allowFactoryBeanInit && isSingleton(beanName, mbd, dbd))) {
+								//判断该 beanName 对应的bean是否与类型匹配
 								matchFound = isTypeMatch(beanName, type, allowFactoryBeanInit);
 							}
 							if (!matchFound) {
 								// In case of FactoryBean, try to match FactoryBean instance itself next.
+								//如果 beanName 对应的bean与类型不匹配，则判断 &+beanName 拿到的 FactoryBean 本身是否匹配
 								beanName = FACTORY_BEAN_PREFIX + beanName;
 								matchFound = isTypeMatch(beanName, type, allowFactoryBeanInit);
 							}
 						}
+						//如果该beanName对应的bean与类型匹配，则放入result这个list中
 						if (matchFound) {
 							result.add(beanName);
 						}
@@ -1258,9 +1277,13 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 			}
 
 			/**
-			 * 寻找可以用来自动注入的候选对象，这里会先根据属性的类型去获取符合的bean的名称列表，
-			 * 然后根据这些符合的beanName通过beanFactory.getBean(beanName)拿到对应的bean，再将
-			 * 这些符合的bean放在一个map集合中返回，matchingBeans 用来接收这些匹配的 bean
+			 * 寻找可以用来自动注入的候选对象，这里会先根据属性的类型去获取符合的bean的名称列表，然后根据这些符合的 beanName 通过
+			 * beanFactory.getBean(beanName)拿到对应的bean，再将这些符合的bean放在一个map集合中返回，matchingBeans 用来接收这些匹配的 bean
+			 * ！！！
+			 * 在查找过程中如果发现可以被用来注入的是一个FactoryBean，则去实例化这个 FactoryBean 并返回这个实例化的对象，这个时候
+			 * FactoryBean 对象仅仅被实例化而已，还没有进行依赖注入等操作，更没有被注册到单例池中，仅仅是放在 factoryBeanInstanceCache
+			 * 这一个缓存 FactoryBean 实例的 map当中，下面会再调用一次 beanFactory.getBean(beanName)，将这个FactoryBean对象从缓存中取出来，
+			 * 进行依赖注入，然后放入单例池中
 			 */
 			Map<String, Object> matchingBeans = findAutowireCandidates(beanName, type, descriptor);
 			if (matchingBeans.isEmpty()) {
@@ -1307,6 +1330,12 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 				autowiredBeanNames.add(autowiredBeanName);
 			}
 			if (instanceCandidate instanceof Class) {
+				/**
+				 * 再调用一次 beanFactory.getBean()方法，从单例池中获取被用来自动注入的bean
+				 * 如果被用来自动注入的bean是一个 FactoryBean，这里会从 factoryBeanInstanceCache 这个 map中将其取出来
+				 * 前面已经将这个 FactoryBean 实例化出来并放入这个缓存 FactoryBean实例的 map中了，然后对这个FactoryBean
+				 * 进行依赖注入等操作，并放入 singletonObjects 这个单例池中
+				 */
 				instanceCandidate = descriptor.resolveCandidate(autowiredBeanName, type, this);
 			}
 			//将被用来注入的对象赋值给 result，最终返回这个 result

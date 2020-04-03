@@ -882,11 +882,14 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 	@Override
 	protected ResolvableType getTypeForFactoryBean(String beanName, RootBeanDefinition mbd, boolean allowInit) {
 		// Check if the bean definition itself has defined the type with an attribute
+		//检查bean定义本身是否已使用属性定义类型
 		ResolvableType result = getTypeForFactoryBeanFromAttributes(mbd);
 		if (result != ResolvableType.NONE) {
 			return result;
 		}
 
+		//判断bean定义是否有BeanClass，有则取出，没有则取 ResolvableType.NONE
+		//如果是 mybatis中的 mapper接口，mapper被设置了beanClass为 MapperFactoryBean
 		ResolvableType beanType =
 				(mbd.hasBeanClass() ? ResolvableType.forClass(mbd.getBeanClass()) : ResolvableType.NONE);
 
@@ -937,7 +940,9 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 		}
 
 		// If we're allowed, we can create the factory bean and call getObjectType() early
+		//如果 allowInit 为true，依赖注入时，这个值传进来的直接是 true，表示允许 FactoryBean初始化
 		if (allowInit) {
+			//判断是否单例然后通过各自的途径去获取 FactoryBean 对象
 			FactoryBean<?> factoryBean = (mbd.isSingleton() ?
 					getSingletonFactoryBeanForTypeCheck(beanName, mbd) :
 					getNonSingletonFactoryBeanForTypeCheck(beanName, mbd));
@@ -1042,10 +1047,13 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 	@Nullable
 	private FactoryBean<?> getSingletonFactoryBeanForTypeCheck(String beanName, RootBeanDefinition mbd) {
 		synchronized (getSingletonMutex()) {
+			//先从缓存FactoryBean实例的 map中获取一遍，FactoryBean还没被创建时这里获取出来为 null
 			BeanWrapper bw = this.factoryBeanInstanceCache.get(beanName);
+			//如果获取得到，说明 FactoryBean已经被创建，直接返回
 			if (bw != null) {
 				return (FactoryBean<?>) bw.getWrappedInstance();
 			}
+			//从单例池中获取一遍，如果该bean还没有被创建并且没有正在被创建，返回null
 			Object beanInstance = getSingleton(beanName, false);
 			if (beanInstance instanceof FactoryBean) {
 				return (FactoryBean<?>) beanInstance;
@@ -1058,9 +1066,12 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 			Object instance;
 			try {
 				// Mark this bean as currently in creation, even if just partially.
+				//将该bean标记为正在创建
 				beforeSingletonCreation(beanName);
 				// Give BeanPostProcessors a chance to return a proxy instead of the target bean instance.
+				//执行 InstantiationAwareBeanPostProcessor 后置处理器，如果该后置处理器返回了bean，则不再去实例化bean
 				instance = resolveBeforeInstantiation(beanName, mbd);
+				//如果后置处理器没有返回bean，则去创建bean
 				if (instance == null) {
 					bw = createBeanInstance(beanName, mbd, null);
 					instance = bw.getWrappedInstance();
@@ -1080,11 +1091,13 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 			}
 			finally {
 				// Finished partial creation of this bean.
+				//创建完该bean，将该bean从正在创建的列表中移除，表示没有正在被创建
 				afterSingletonCreation(beanName);
 			}
 
 			FactoryBean<?> fb = getFactoryBean(beanName, instance);
 			if (bw != null) {
+				//将该 FactoryBean 放入缓存FactoryBean实例的 map中
 				this.factoryBeanInstanceCache.put(beanName, bw);
 			}
 			return fb;
@@ -1260,7 +1273,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 		 */
 		boolean resolved = false;
 		boolean autowireNecessary = false;
-		if (args == null) {  //单例对象这里不会进
+		if (args == null) {
 			synchronized (mbd.constructorArgumentLock) {
 				//如果已经解析了构造方法的参数，则必须要通过一个带参构造方法来实例化
 				if (mbd.resolvedConstructorOrFactoryMethod != null) {
