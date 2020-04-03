@@ -577,7 +577,8 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 		// BeanWrapper用来包装bean，可以通过 getWrappedInstance()方法获取被包装的对象
 		BeanWrapper instanceWrapper = null;
 		if (mbd.isSingleton()) {
-			//根据beanName从 factoryBeanInstanceCache中取出，factoryBeanInstanceCache.size=0，所以 instanceWrapper为null
+			//根据beanName从缓存 BactoryBean 实例的 map 中取出bean，如果这是一个 FactoryBean，
+			// 则从这里取出一个实例化好的bean，否则 instanceWrapper为null
 			instanceWrapper = this.factoryBeanInstanceCache.remove(beanName);
 		}
 		if (instanceWrapper == null) {
