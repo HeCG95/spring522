@@ -244,7 +244,7 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 
 		//通过name获取beanName，这里不用name直接作为beanName有两个原因：
 		// 1. name可能会以 & 开头，表明调用者想获取FactoryBean本身，而非实现类所创建的bean。
-		//    在BeanFactory中，FactoryBean的实现类和其他类的存放方式是一致的，及<beanName，bean>，
+		//    在BeanFactory中，FactoryBean的实现类和其他类的存放方式是一致的，即<beanName，bean>，
 		//	  beanName中是没有 & 这个字符的，将name的首字符 & 移除，这样才能获取到FactoryBean实例
 		//2. 还是别名的问题，转换需要
 		final String beanName = transformedBeanName(name);

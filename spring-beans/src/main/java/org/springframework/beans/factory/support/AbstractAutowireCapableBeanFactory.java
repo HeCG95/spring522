@@ -577,7 +577,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 		// BeanWrapper用来包装bean，可以通过 getWrappedInstance()方法获取被包装的对象
 		BeanWrapper instanceWrapper = null;
 		if (mbd.isSingleton()) {
-			//根据beanName从缓存 BactoryBean 实例的 map 中取出bean，如果这是一个 FactoryBean，
+			//根据beanName从缓存 FactoryBean 实例的 map 中取出bean，如果这是一个 FactoryBean，
 			// 则从这里取出一个实例化好的bean，否则 instanceWrapper为null
 			instanceWrapper = this.factoryBeanInstanceCache.remove(beanName);
 		}
@@ -609,7 +609,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 				try {
 					/**
 					 * 执行实现了 MergedBeanDefinitionPostProcessor 的后置处理器的 postProcessMergedBeanDefinition()方法，
-					 * 这里主要是执行CommonAnnotationBeanPostProcessor 和 AutowiredAnnotationBeanPostProcessor这里个后置处理器，
+					 * 这里主要是执行CommonAnnotationBeanPostProcessor 和 AutowiredAnnotationBeanPostProcessor这两个后置处理器，
 					 * postProcessMergedBeanDefinition()中会先去找到bean中需要依赖注入的属性，然后存储在缓存中，后面进行依赖注入
 					 * 的时候，就是直接从缓存中取出需要进行依赖注入的属性，这里以 AutowiredAnnotationBeanPostProcessor 这个后置
 					 * 处理器为例进行说明
@@ -1246,7 +1246,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 		// Make sure bean class is actually resolved at this point.
 		Class<?> beanClass = resolveBeanClass(mbd, beanName);
 
-		//检测一个类的访问权限，spring默认情况下对于非public的类时允许访问的
+		//检测一个类的访问权限，spring默认情况下对于非public的类是允许访问的
 		if (beanClass != null && !Modifier.isPublic(beanClass.getModifiers()) && !mbd.isNonPublicAccessAllowed()) {
 			throw new BeanCreationException(mbd.getResourceDescription(), beanName,
 					"Bean class isn't public, and non-public access not allowed: " + beanClass.getName());
@@ -1269,7 +1269,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 		 * 通过上面的英文注释可以知道这是一个Shortcut，当多次构建同一个bean时，可以使用这个Shortcut
 		 * 也就是说不再需要每次推断应该使用哪种方式构建bean，比如在多次构建同一个prototype类型的bean时，
 		 * 就可以走此处的Shortcut，这里的 resolved 和 mbd.constructorArgumentsResolved 将会在bean第一次
-		 *实例化的过程中被设置，后面证明
+		 * 实例化的过程中被设置，后面证明
 		 */
 		boolean resolved = false;
 		boolean autowireNecessary = false;
@@ -1493,12 +1493,14 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 		// state of the bean before properties are set. This can be used, for example,
 		// to support styles of field injection.
 		//判断是否有实现了 InstantiationAwareBeanPostProcessor 的后置处理器，这个后置处理器可以在bean属性注入之前做一些操作
+		//即 在bean被实例化出来之后，进行依赖注入之前就做一些操作
 		//这里执行的是postProcessAfterInstantiation()这个方法，如果在该方法中返回false，则不再进行后面的属性注入
 		if (!mbd.isSynthetic() && hasInstantiationAwareBeanPostProcessors()) {
 			for (BeanPostProcessor bp : getBeanPostProcessors()) {
 				if (bp instanceof InstantiationAwareBeanPostProcessor) {
 					InstantiationAwareBeanPostProcessor ibp = (InstantiationAwareBeanPostProcessor) bp;
 					if (!ibp.postProcessAfterInstantiation(bw.getWrappedInstance(), beanName)) {
+						//如果返回false，则直接return结束当前方法，不再进行后面的依赖注入操作
 						return;
 					}
 				}
@@ -1553,9 +1555,9 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 					//如果实现了 InstantiationAwareBeanPostProcessor，执行postProcessProperties()获取属性值
 					InstantiationAwareBeanPostProcessor ibp = (InstantiationAwareBeanPostProcessor) bp;
 					/**
-					 * 这里主要执行的是 CommonAnnotationBeanPostProcessor 和 AutowiredAnnotationPostprocessor 中的方法
+					 * 这里主要执行的是 CommonAnnotationBeanPostProcessor 和 AutowiredAnnotationBeanPostprocessor 中的方法
 					 * 其中，CommonAnnotationBeanPostProcessor 主要是对@PostConstruct、@Resource等注解做处理
-					 * AutowiredAnnotationPostprocessor 主要是对@Autowired、@Value注解做处理
+					 * AutowiredAnnotationBeanPostprocessor 主要是对@Autowired、@Value注解做处理
 					 * ！！！依赖注入就是在这里面完成的！！！包括循环依赖！！！
 					 */
 					PropertyValues pvsToUse = ibp.postProcessProperties(pvs, bw.getWrappedInstance(), beanName);

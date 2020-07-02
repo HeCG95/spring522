@@ -548,8 +548,10 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 				 */
 				invokeBeanFactoryPostProcessors(beanFactory);
 
-				/////////到这里为止，beanFactory初始化已经完成，以下开始bean的实例化///////////
-
+				/**
+				！！！到这里为止，beanFactory初始化已经完成，需要实例化的类已经全部放入 beanDefinitionMap 中，
+				！！！ 以下开始bean的实例化
+				*/
 				// Register bean processors that intercept bean creation.
 				/**
 				 * 注册bean的后置处理器，这里只是注册，还未执行，这里主要注册了三个后置处理器：

@@ -458,7 +458,7 @@ public class AutowiredAnnotationBeanPostProcessor extends InstantiationAwareBean
 		 */
 		InjectionMetadata metadata = this.injectionMetadataCache.get(cacheKey);
 		//判断是否需要更新元数据对象，里面其实就是判断 metadata 是否为空或者 metadata 的目标对象是否是当前这个bean
-		// return (metadata == null || metadata.targetClass != clazz);
+		//// return (metadata == null || metadata.targetClass != clazz);
 		if (InjectionMetadata.needsRefresh(metadata, clazz)) {
 			synchronized (this.injectionMetadataCache) {
 				metadata = this.injectionMetadataCache.get(cacheKey);
@@ -671,7 +671,8 @@ public class AutowiredAnnotationBeanPostProcessor extends InstantiationAwareBean
 				Assert.state(beanFactory != null, "No BeanFactory available");
 				TypeConverter typeConverter = beanFactory.getTypeConverter();
 				try {
-					//解析依赖，获取到一个用来进行依赖注入的对象，并将符合依赖注入的对象的banName防在 autowiredBeanNames 这个列表中
+					/** ！！！！！！ */
+					//解析依赖，获取到一个用来进行依赖注入的对象，并将符合依赖注入的对象的banName放在 autowiredBeanNames 这个列表中
 					value = beanFactory.resolveDependency(desc, beanName, autowiredBeanNames, typeConverter);
 				}
 				catch (BeansException ex) {

@@ -263,7 +263,7 @@ public class AnnotatedBeanDefinitionReader {
 		abd.setInstanceSupplier(supplier);
 		//得到类的作用域
 		ScopeMetadata scopeMetadata = this.scopeMetadataResolver.resolveScopeMetadata(abd);
-		//将作用于设置到BeanDefinition中
+		//将作用域设置到BeanDefinition中
 		abd.setScope(scopeMetadata.getScopeName());
 		//通过beanNameGenerator生成类的名字
 		//this.registry：入口类AnnotationConfigApplicationContext构造中初始化了AnnotationConfigRegistry接口的引用
