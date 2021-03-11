@@ -304,11 +304,13 @@ class ConfigurationClassParser {
 						this.componentScanParser.parse(componentScan, sourceClass.getMetadata().getClassName());
 
 				// Check the set of scanned definitions for any further config classes and parse recursively if needed
+				//处理扫描出来的类中属于配置类的类，处理方式同传进来的配置类
 				for (BeanDefinitionHolder holder : scannedBeanDefinitions) {
 					BeanDefinition bdCand = holder.getBeanDefinition().getOriginatingBeanDefinition();
 					if (bdCand == null) {
 						bdCand = holder.getBeanDefinition();
 					}
+					//校验是否是配置类
 					if (ConfigurationClassUtils.checkConfigurationClassCandidate(bdCand, this.metadataReaderFactory)) {
 						parse(bdCand.getBeanClassName(), holder.getBeanName());
 					}

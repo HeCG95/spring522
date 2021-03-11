@@ -276,7 +276,7 @@ public class ClassPathBeanDefinitionScanner extends ClassPathScanningCandidateCo
 		//循环所有扫描出来的包
 		for (String basePackage : basePackages) {
 			//获取包及其子包下的所有加了注解的类，并包装成BeanDefinition，最终以set集合返回
-			//调用的是scanCandidateComponents()方法，返回的是扫描数来的类的集合
+			//调用的是scanCandidateComponents()方法，返回的是扫描出来的类的集合
 			Set<BeanDefinition> candidates = findCandidateComponents(basePackage);
 			//循环解析包下的所有扫描出来的类
 			for (BeanDefinition candidate : candidates) {

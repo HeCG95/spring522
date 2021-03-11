@@ -509,7 +509,7 @@ public class AutowiredAnnotationBeanPostProcessor extends InstantiationAwareBean
 				}
 			});
 
-			//获取需要自动注入的方法，并将其进行封装，这里主要是获取加了@Autowired或@Value这两个注解的属性
+			//获取需要自动注入的方法，并将其进行封装，这里主要是获取加了@Autowired或@Value这两个注解的方法
 			//这里基本同获取属性一致，这里不再累述
 			ReflectionUtils.doWithLocalMethods(targetClass, method -> {
 				Method bridgedMethod = BridgeMethodResolver.findBridgedMethod(method);

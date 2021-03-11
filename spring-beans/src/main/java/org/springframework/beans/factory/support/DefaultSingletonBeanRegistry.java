@@ -187,6 +187,7 @@ public class DefaultSingletonBeanRegistry extends SimpleAliasRegistry implements
 		if (singletonObject == null && isSingletonCurrentlyInCreation(beanName)) {
 			synchronized (this.singletonObjects) {
 				//正在被创建中，则从earlySingletonObjects取出单例对象
+				//循环依赖注入时，当对象正在创建，该对象会被放入singletonFactories和registeredSingletons中，并从earlySingletonObjects中移除，所以循环依赖这里取出的还是为null
 				singletonObject = this.earlySingletonObjects.get(beanName);
 				//如果单例对象还为空，allowEarlyReference前面传进来为 true
 				if (singletonObject == null && allowEarlyReference) {

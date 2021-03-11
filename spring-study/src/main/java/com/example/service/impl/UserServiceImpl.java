@@ -17,6 +17,7 @@ public class UserServiceImpl implements IUserService {
 
 	@Override
 	public void query() {
-		System.out.println(userMapper.query().toString());
+		System.out.println("userMapper query()");
+//		System.out.println(userMapper.query().toString());
 	}
 }

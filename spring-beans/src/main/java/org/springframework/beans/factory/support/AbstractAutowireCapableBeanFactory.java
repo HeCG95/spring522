@@ -1513,7 +1513,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 
 		/**
 		 * 获取自动注入的模型，spring中自动注入的模型主要有三种：
-		 * 1. AUTOWIRE_NO：spring默认的自动注入模型，就是没有加@Autowired的时候。
+		 * 1. AUTOWIRE_NO：spring默认的自动注入模型，就是没有加@Autowired的时候不自动注入。
 		 * 				加了@Autowired注解后，spring采用by_type的技术进行自动注入，
 		 * 				需要区分自动注入模型和自动注入技术
 		 * 2. AUTOWIRE_BY_NAME
@@ -1543,7 +1543,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 		//由于有CommonAnnotationBeanPostProcessor 和 AutowiredAnnotationPostprocessor这两个后置处理器，hasInstAwareBpps为true
 		if (hasInstAwareBpps) {
 			if (pvs == null) {
-				//一般BeanDefinition中没有设置属性值，所以这里还是为空，当前通过BeanFactorypostprocessor设置了则不为空
+				//一般BeanDefinition中没有设置属性值，所以这里还是为空，当前通过BeanFactoryPostProcessor设置了则不为空
 				pvs = mbd.getPropertyValues();
 			}
 			/**

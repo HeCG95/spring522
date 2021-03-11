@@ -90,7 +90,7 @@ public class AnnotationConfigApplicationContext extends GenericApplicationContex
 		//先初始化父类GenericApplicationContext中的beanFactory
 		//调用本类无参构造方法
 		this();
-		//完成传进来的类的解析和注册，如AppConfig
+		//完成传进来的类的解析和注册，如AppConfig（只完成了配置类的解析和注册）
 		register(componentClasses);
 		//初始化spring环境：准备好bean工厂，扫描、解析类并实例化对象
 		refresh();

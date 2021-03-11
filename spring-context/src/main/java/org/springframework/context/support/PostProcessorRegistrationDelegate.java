@@ -73,6 +73,7 @@ final class PostProcessorRegistrationDelegate {
 				if (postProcessor instanceof BeanDefinitionRegistryPostProcessor) {
 					BeanDefinitionRegistryPostProcessor registryProcessor =
 							(BeanDefinitionRegistryPostProcessor) postProcessor;
+					//执行通过AnnotationConfigApplicationContext添加给spring的后置处理器中该方法的逻辑，所以该类型的后置处理器会最先执行
 					registryProcessor.postProcessBeanDefinitionRegistry(registry);
 					registryProcessors.add(registryProcessor);
 				}
@@ -94,24 +95,28 @@ final class PostProcessorRegistrationDelegate {
 			这里拿的是实现了 BeanDefinitionRegistryPostProcessor 的后置处理器，主要是：ConfigurationClassPostProcessor*/
 			String[] postProcessorNames =
 					beanFactory.getBeanNamesForType(BeanDefinitionRegistryPostProcessor.class, true, false);
-			/**这个地方可以得到一个BeanFactoryPostProcessor（BeanDefinitionRegistryPostProcessor），因为是spring默认在最开始自己注册的
-			spring工厂需要去解析和扫描等功能，这些功能需要在spring工厂初始化完成之前执行
-			所以spring在一开始就注册了一个BeanFactoryPostProcessor，用来插手spring工厂的实例化过程
-			这个地方断点可以知道这个类叫ConfigurationClassPostProcessor*/
+			/**
+			 * 这个地方可以得到一个BeanFactoryPostProcessor（BeanDefinitionRegistryPostProcessor），
+			 * 因为是spring默认在初始化 AnnotationConfigApplicationContext 时注册的
+			 * spring工厂需要去解析和扫描等功能，这些功能需要在spring工厂初始化完成之前执行
+			 * 所以spring在一开始就注册了一个BeanFactoryPostProcessor，用来插手spring工厂的实例化过程
+			 * 这个地方断点可以知道这个类叫ConfigurationClassPostProcessor
+			 * */
 			for (String ppName : postProcessorNames) {
 				//判断是否实现了 PriorityOrdered
 				if (beanFactory.isTypeMatch(ppName, PriorityOrdered.class)) {
+					//添加到当前要执行的后置处理器列表当中
 					currentRegistryProcessors.add(beanFactory.getBean(ppName, BeanDefinitionRegistryPostProcessor.class));
 					//将执行过的后置处理器添加进 processedBeans 这个set集合
 					processedBeans.add(ppName);
 				}
 			}
-			//排序
+			//对当前要执行的后置处理器列表进行排序
 			sortPostProcessors(currentRegistryProcessors, beanFactory);
 			//将自定义的和spring内部实现的BeanDefinitionRegistryPostProcessor合并到一起
 			registryProcessors.addAll(currentRegistryProcessors);
 			/** 重要！！！
-			 * 循环BeanDefinitionRegistryPostProcessor，调用postProcessor.postProcessBeanDefinitionRegistry(registry)
+			 * 该方法循环BeanDefinitionRegistryPostProcessor，调用postProcessor.postProcessBeanDefinitionRegistry(registry)
 			 * BeanDefinitionRegistryPostProcessor继承了BeanFactoryPostProcessor，postProcessBeanDefinitionRegistry()是一个扩展方法
 			 * 前面说过，这里拿到的BeanDefinitionRegistryPostProcessor主要是ConfigurationClassPostProcessor
 			 * */
@@ -137,7 +142,7 @@ final class PostProcessorRegistrationDelegate {
 
 			// Finally, invoke all other BeanDefinitionRegistryPostProcessors until no further ones appear.
 			//执行没有实现 Priority 和 Order 的BeanDefinitionRegistryPostProcessor
-			//通过 @Import 等方式注册进来的 BeanDefinitionRegistryPostProcessor 后置处理器如果实现了 Priority，在这里执行
+			//通过 @Import 等方式注册进来的 BeanDefinitionRegistryPostProcessor 后置处理器，在这里执行
 			boolean reiterate = true;
 			while (reiterate) {
 				reiterate = false;
@@ -270,7 +275,7 @@ final class PostProcessorRegistrationDelegate {
 		}
 
 		/**
-		 * 对后置处理器进行排序，并注册到 beanPostProcessors容器（map）中
+		 * 对后置处理器进行排序，并注册到 beanPostProcessors容器（list）中
 		 * 注册过程中发现重复就将旧的移除，将新的注册
 		 */
 		// First, register the BeanPostProcessors that implement PriorityOrdered.
